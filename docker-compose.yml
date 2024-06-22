@@ -35,6 +35,23 @@ services:
             - api-nameserver
         environment:
             - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
+    app-subscription-service:
+        build:
+            context: ./app-sign-control
+            dockerfile: Dockerfile
+        image: app-subscription-service
+        container_name: app-subscription-service
+        working_dir: /app
+        volumes:
+            - ./:/app
+        networks:
+            - subscontrol
+        tty: true
+        restart: no
+        ports:
+            - "8080:8080"
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
 
 networks:
     subscontrol:
