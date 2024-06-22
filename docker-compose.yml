@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+    api.nameserver:
+        build:
+            context: ./api-nameserver
+            dockerfile: Dockerfile
+        image: api.nameserver
+        container_name: api.nameserver
+        working_dir: //app
+        volumes:
+            - ./:/app
+        networks:
+            - subscontrol
+        tty: true
+        restart: no
+        ports:
+            - "8761:8080"
+
+networks:
+    subscontrol:
+        driver: bridge

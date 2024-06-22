@@ -32,7 +32,10 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
+        <java.main.class>com.projarc.api_nameserver.ApiNameserverApplication</java.main.class>
+        <docker-compose-plugin.version>1.0.0</docker-compose-plugin.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,10 +71,30 @@
 	</dependencyManagement>
 	<build>
 		<plugins>
+
+            <plugin>
+                <groupId>io.brachu</groupId>
+                <artifactId>docker-compose-maven-plugin</artifactId>
+                <version>${docker-compose-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>start</goal>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+
+                <configuration>
+                    <mainClass>${java.main.class}</mainClass>
+                </configuration>
+
+            </plugin>
 		</plugins>
 	</build>
 
