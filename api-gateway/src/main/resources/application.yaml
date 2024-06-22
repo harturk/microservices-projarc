@@ -15,14 +15,13 @@ spring:
                   predicates:
                       - Path=/assinvalida/**
     application:
-        name: subscription-gateway
+        name: api-gateway
 server:
     port: 8765
 eureka:
     client:
-        fetch-registry: true
         serviceUrl:
-            defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+            defaultZone: http://api-nameserver:8761/eureka
 management:
     endpoints:
         web:

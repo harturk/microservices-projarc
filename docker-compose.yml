@@ -1,13 +1,13 @@
 version: "3.7"
 
 services:
-    api.nameserver:
+    api-nameserver:
         build:
             context: ./api-nameserver
             dockerfile: Dockerfile
-        image: api.nameserver
-        container_name: api.nameserver
-        working_dir: //app
+        image: api-nameserver
+        container_name: api-nameserver
+        working_dir: /app
         volumes:
             - ./:/app
         networks:
@@ -15,7 +15,26 @@ services:
         tty: true
         restart: no
         ports:
-            - "8761:8080"
+            - "8761:8761"
+    api-gateway:
+        build:
+            context: ./api-gateway
+            dockerfile: Dockerfile
+        image: api-gateway
+        container_name: api-gateway
+        working_dir: /app
+        volumes:
+            - ./:/app
+        networks:
+            - subscontrol
+        tty: true
+        restart: no
+        ports:
+            - "8765:8765"
+        depends_on:
+            - api-nameserver
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
 
 networks:
     subscontrol:

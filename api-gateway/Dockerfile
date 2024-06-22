@@ -9,7 +9,7 @@ FROM openjdk:21-jdk
 
 WORKDIR /app
 
-EXPOSE 8761
+EXPOSE 8765
 
 COPY --from=build /app/target/*.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
