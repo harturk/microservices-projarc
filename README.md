@@ -1,6 +1,6 @@
 ## Clonando modulos
 
-### RUN git submodule update --remote --merge
+### RUN git submodule update --init
 
 ### RUN docker compose up
 
