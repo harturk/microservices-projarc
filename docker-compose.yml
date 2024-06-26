@@ -39,7 +39,10 @@ services:
         extends:
             file: ./app-subscription-service/docker-compose.override.yml
             service: app-subscription-service
-
+    api-cache:
+        extends:
+            file: ./api-cache/docker-compose.override.yml
+            service: api-cache
 networks:
     main:
         driver: bridge
