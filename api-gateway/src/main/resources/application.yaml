@@ -2,18 +2,10 @@ spring:
     cloud:
         gateway:
             routes:
-                - id: subscription-service
-                  uri: lb://subscription-service
+                - id: app-sign-control
+                  uri: lb://app-subscription-service:8080
                   predicates:
-                      - Path=/servcad/**
-                - id: subscription-payment-service
-                  uri: lb://subscription-service
-                  predicates:
-                      - Path=/registrarpagamento/**
-                - id: subscription-status-service
-                  uri: lb://subscription-status-service
-                  predicates:
-                      - Path=/assinvalida/**
+                      - Path=/servcad/assinaturas/assinvalida/**
     application:
         name: api-gateway
 server:
@@ -22,7 +14,6 @@ eureka:
     client:
         serviceUrl:
             defaultZone: http://api-nameserver:8761/eureka
-            # defaultZone: http://localhost:8761/eureka -> caso rode sem docker
 management:
     endpoints:
         web:
