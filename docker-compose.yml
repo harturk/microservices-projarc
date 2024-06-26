@@ -13,21 +13,27 @@ services:
         networks:
             - main
         tty: true
-        restart: no
+        restart: always
         ports:
             - "8761:8761"
     api-gateway:
         extends:
             file: ./api-gateway/docker-compose.override.yml
             service: api-gateway
+        depends_on:
+            - api-nameserver
     app-subscription-service:
         extends:
             file: ./app-subscription-service/docker-compose.override.yml
             service: app-subscription-service
+        depends_on:
+            - api-nameserver
     api-cache:
         extends:
             file: ./api-cache/docker-compose.override.yml
             service: api-cache
+        depends_on:
+            - api-nameserver
 networks:
     main:
         driver: bridge

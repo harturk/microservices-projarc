@@ -7,7 +7,9 @@ services:
             - .:/app
         networks:
             - main
-        command: ./mvnw spring-boot:run
+        command: >
+            bash -c "chmod +x ./mvnw 
+            && ./mvnw spring-boot:run"
         ports:
             - "8765:8765"
         depends_on:
