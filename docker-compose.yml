@@ -17,24 +17,9 @@ services:
         ports:
             - "8761:8761"
     api-gateway:
-        build:
-            context: ./api-gateway
-            dockerfile: Dockerfile
-        image: api-gateway
-        container_name: api-gateway
-        working_dir: /app
-        volumes:
-            - ./:/app
-        networks:
-            - main
-        tty: true
-        restart: no
-        ports:
-            - "8765:8765"
-        depends_on:
-            - api-nameserver
-        environment:
-            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
+        extends:
+            file: ./api-gateway/docker-compose.override.yml
+            service: api-gateway
     app-subscription-service:
         extends:
             file: ./app-subscription-service/docker-compose.override.yml

@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+    api-gateway:
+        build: .
+        volumes:
+            - .:/app
+        networks:
+            - main
+        command: ./mvnw spring-boot:run
+        ports:
+            - "8765:8765"
+        depends_on:
+            - api-nameserver
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
