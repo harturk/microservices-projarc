@@ -34,6 +34,19 @@ services:
             service: api-cache
         depends_on:
             - api-nameserver
+    rabbitmq:
+        image: rabbitmq:management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        expose:
+            - "5672"
+            - "15672"
+        environment:
+            - RABBITMQ_DEFAULT_USER=engsoft2
+            - RABBITMQ_DEFAULT_PASS=engsoft2
+        networks:
+            - main
 networks:
     main:
         driver: bridge
