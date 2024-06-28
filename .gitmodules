@@ -1,3 +1,0 @@
-[submodule "app-subscription-service"]
-	path = app-subscription-service
-	url = https://github.com/PauloCarnovale/app-sign-control.git

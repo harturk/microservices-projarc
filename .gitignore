@@ -1,2 +1,5 @@
 /currency-service-v6/*
+/subscription-server-cached/*
+/history-service/*
 *.class
+/terceiro/*
