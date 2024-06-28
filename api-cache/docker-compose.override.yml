@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 services:
     api-cache:
@@ -11,10 +11,7 @@ services:
             bash -c "chmod +x ./mvnw 
             && ./mvnw spring-boot:run"
         ports:
-            - "8770:8770"
+            - 8770
         environment:
-            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
-            - spring.rabbitmq.host=rabbitmq
-            - spring.rabbitmq.port=5672
-            - spring.rabbitmq.username=engsoft2
-            - spring.rabbitmq.password=engsoft2
+            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka/
+            - RABBITMQ_SERVICE_URL=rabbitmq

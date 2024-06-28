@@ -3,15 +3,24 @@ spring:
         gateway:
             routes:
                 - id: app-sign-control
-                  uri: lb://app-subscription-service:8080
+                  uri: lb://app-sign-control
                   predicates:
-                      - Path=/servcad/assinaturas/assinvalida/**
+                      - Path=/servcad/**
+                - id: app-sign-control
+                  uri: lb://app-sign-control
+                  predicates:
+                      - Path=/registrarpagamento/**
+                - id: app-sign-control
+                  uri: lb://app-sign-control
+                  predicates:
+                      - Path=/assinvalida/**
     application:
         name: api-gateway
 server:
     port: 8765
 eureka:
     client:
+        fetch-registry: true
         serviceUrl:
             defaultZone: http://api-nameserver:8761/eureka
 management:

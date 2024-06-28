@@ -28,23 +28,24 @@ services:
             service: app-subscription-service
         depends_on:
             - api-nameserver
+            - rabbitmq
     api-cache:
         extends:
             file: ./api-cache/docker-compose.override.yml
             service: api-cache
         depends_on:
             - api-nameserver
+            - rabbitmq
+        deploy:
+            replicas: 3
     rabbitmq:
         image: rabbitmq:management
         ports:
             - "5672:5672"
             - "15672:15672"
-        expose:
-            - "5672"
-            - "15672"
         environment:
-            - RABBITMQ_DEFAULT_USER=engsoft2
-            - RABBITMQ_DEFAULT_PASS=engsoft2
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
         networks:
             - main
 networks:

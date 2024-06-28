@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 
 services:
     api-gateway:
@@ -15,4 +15,4 @@ services:
         depends_on:
             - api-nameserver
         environment:
-            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka
+            - eureka.client.serviceUrl.defaultZone=http://api-nameserver:8761/eureka/

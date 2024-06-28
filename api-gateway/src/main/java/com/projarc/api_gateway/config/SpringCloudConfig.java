@@ -10,8 +10,9 @@ public class SpringCloudConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         System.out.println("Entrou no gatewayRoutes");
+        // Mapeia a rota para o serviço api-cache
         return builder.routes()
-                .route(r -> r.path("/servcad/assinaturas/assinvalida/**")
+                .route(r -> r.path("/assinvalida/**")
                         .uri("lb://api-cache"))
                 .build();
     }
