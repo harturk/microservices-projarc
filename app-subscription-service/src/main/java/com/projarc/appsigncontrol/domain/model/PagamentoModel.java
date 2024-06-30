@@ -34,6 +34,9 @@ public class PagamentoModel {
         this.valorEstornado = valorEstornado;
     }
 
+    public PagamentoModel() {
+    }
+
     public long getId() {
         return this.id;
     }
@@ -61,4 +64,13 @@ public class PagamentoModel {
     public PagamentoStatus getStatus() {
         return this.status;
     }
+
+    @Override
+    public String toString() {
+        return "PagamentoModel [id=" + id + ", assinaturaId=" + assinaturaId + ", valorPago=" + valorPago
+                + ", dataPagamento=" + dataPagamento + ", promocao=" + promocao + ", status=" + status
+                + ", valorEstornado=" + valorEstornado + "]";
+    }
+
+    
 }

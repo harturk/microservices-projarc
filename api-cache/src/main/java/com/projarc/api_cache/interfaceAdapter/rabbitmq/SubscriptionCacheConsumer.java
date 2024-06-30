@@ -19,7 +19,8 @@ public class SubscriptionCacheConsumer {
 
     @RabbitListener(queues = "#{rabbitConfig.getQueueName()}")
     public void listenToStatusUpdates(@Payload @NonNull SubscriptionStatusUpdate subscriptionStatusUpdate) {
-        subscriptionStatusDataAccess.updateSubscriptionStatus(subscriptionStatusUpdate.subscriptionId(),
+        System.out.println("Mensagem recebida:" + subscriptionStatusUpdate);
+        subscriptionStatusDataAccess.updateSubscriptionStatus(subscriptionStatusUpdate.assinaturaId(),
                 subscriptionStatusUpdate.status());
     }
 

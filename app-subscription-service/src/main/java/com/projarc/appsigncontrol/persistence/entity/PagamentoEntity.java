@@ -101,6 +101,12 @@ public class PagamentoEntity {
         this.promocao = promocao;
     }
 
+    @Override
+    public String toString() {
+        return "PagamentoEntity [id=" + id + ", assinatura=" + assinatura + ", valorPago=" + valorPago
+                + ", dataPagamento=" + dataPagamento + ", promocao=" + promocao + "]";
+    }
+
     public static PagamentoModel toPagamentoModel(PagamentoEntity pagamentoEntity, PagamentoStatus status,
             double valorEstornado) {
         return new PagamentoModel(pagamentoEntity.getId(), pagamentoEntity.getAssinatura().getId(),

@@ -2,6 +2,7 @@ package com.projarc.appsigncontrol.domain.service;
 
 import java.security.InvalidParameterException;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ import java.time.LocalDate;
 public class PagamentoService {
     @Autowired
     private IPagamentoRepository pagamentoRepository;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     private AssinaturaService assinaturaService;
 
     public PagamentoService(IPagamentoRepository pagamentoRepository, AssinaturaService assinaturaService) {
@@ -63,6 +68,8 @@ public class PagamentoService {
 
         PagamentoEntity newPayment = this.pagamentoRepository.save(pagamentoEntity);
         this.assinaturaService.renew(assinatura);
+
+        rabbitTemplate.convertAndSend("appsigncontrol.v1.subscription-update", "", PagamentoEntity.toPagamentoModel(newPayment, status, valorEstornado));
 
         return PagamentoEntity.toPagamentoModel(newPayment, status, valorEstornado);
     }

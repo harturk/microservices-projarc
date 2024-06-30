@@ -1,6 +1,7 @@
 package com.projarc.api_cache.interfaceAdapter.rabbitmq;
 
 import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.core.Queue;
@@ -16,8 +17,8 @@ import java.util.UUID;
 @Configuration
 public class RabbitConfig {
 
-    private final String QUEUENAME = "subscription-cache-queue-" + UUID.randomUUID();
-    private final String FANOUTEXCHANGENAME = "subscription-cache-fannout-" + UUID.randomUUID();
+    private final String QUEUENAME = "appsigncontrol.v1.subscription-update." + Math.random() * 1000;
+    public static final String FANOUTEXCHANGENAME = "appsigncontrol.v1.subscription-update";
 
     @Bean
     public FanoutExchange fanoutExchange() {
@@ -25,23 +26,22 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Declarables fanoutBindings() {
-        Queue uniqueQueue = new Queue(this.QUEUENAME);
-        FanoutExchange fanoutExchange = new FanoutExchange("subscription-status-update-fanout");
-
-        return new Declarables(
-                uniqueQueue,
-                fanoutExchange,
-                BindingBuilder.bind(uniqueQueue).to(fanoutExchange));
+    public Queue queue() {
+        return new Queue(QUEUENAME);
     }
 
     @Bean
-    public MessageConverter converter() {
+    public Binding binding(Queue q, FanoutExchange f) {
+        return BindingBuilder.bind(q).to(f);
+    }
+
+    @Bean
+    public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
     public String getQueueName() {
-        return this.QUEUENAME;
+        return QUEUENAME;
     }
 
     @Bean

@@ -20,12 +20,14 @@ public class SubscriptionStatusCacheService {
         if (status == null) {
             status = subscriptionProxy.getSubscriptionStatus(subscriptionId);
             subscriptionStatusCache.put(subscriptionId, status);
+        }else {
+            System.out.println("Encontrado na cache assinatura:" + subscriptionId);
         }
         return status;
     }
 
-    public void updateSubscriptionStatus(long subscriptionId, Boolean status) {
-        subscriptionStatusCache.put(subscriptionId, status);
+    public void updateSubscriptionStatus(long subscriptionId, String status) {
+        subscriptionStatusCache.put(subscriptionId, status.equals("PAGAMENTO_OK"));
     }
 
 }
